@@ -43,6 +43,8 @@ private slots:
 
     void playStateChanged (QMediaPlayer::State ms);
 
+    void playPause();
+
 public slots:
 
     // start playing this ButtonInfo
