@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
     QWidget window;
     QVBoxLayout *top = new QVBoxLayout();
     window.setLayout(top);
-    window.setWindowTitle("Tomeo");
+    window.setWindowTitle("tomeo");
     window.setMinimumSize(800, 680);
 
     // add the video and the buttons to the top level widget
