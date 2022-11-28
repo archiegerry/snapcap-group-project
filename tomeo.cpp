@@ -28,6 +28,8 @@
 #include <QtWidgets>
 #include <QtGui>
 
+#include "scrub.h"
+
 
 // read in videos and thumbnails to this directory
 std::vector<TheButtonInfo> getInfoIn (std::string loc) {
@@ -126,7 +128,7 @@ int main(int argc, char *argv[]) {
     QVBoxLayout *screen = new QVBoxLayout();
     QHBoxLayout *header = new QHBoxLayout();
     QHBoxLayout *footer = new QHBoxLayout();
-    QVBoxLayout *scrubbers = new QVBoxLayout();
+    //QVBoxLayout *scrubbers = new QVBoxLayout();
     QVBoxLayout *newMedia = new QVBoxLayout();
 
 
@@ -134,8 +136,9 @@ int main(int argc, char *argv[]) {
     QLabel *settings = new QLabel("Settings");
     QLabel *loadProj = new QLabel("Load");
 
-    QLabel *vidScrubber = new QLabel("VIDEO SRUBBER");
-    QLabel *audioScrubber = new QLabel("AUDIO SCRUBBER");
+    //QLabel *vidScrubber = new QLabel("VIDEO SRUBBER");
+    //QLabel *audioScrubber = new QLabel("AUDIO SCRUBBER");
+    Scrub * scrubber = new Scrub();
 
     QLabel *newVidButton = new QLabel("+");
     QLabel *newAudioButton = new QLabel("+");
@@ -146,21 +149,21 @@ int main(int argc, char *argv[]) {
     newProj -> setFixedSize(QSize(30,30));
     settings -> setFixedSize(QSize(300,30));
     loadProj -> setFixedSize(QSize(30,30));
-    vidScrubber -> setFixedSize(QSize(300, 40));
-    audioScrubber -> setFixedSize(QSize(300, 40));
+    //vidScrubber -> setFixedSize(QSize(300, 40));
+    //audioScrubber -> setFixedSize(QSize(300, 40));
     newVidButton ->setFixedSize(QSize(40, 40));
     newAudioButton ->setFixedSize(QSize(40, 40));
 
     header ->addWidget(newProj);
     header ->addWidget(settings);
     header ->addWidget(loadProj);
-    scrubbers ->addWidget(vidScrubber);
-    scrubbers ->addWidget(audioScrubber);
-    newMedia ->addWidget(newVidButton);
-    newMedia ->addWidget(newAudioButton);
+    //scrubbers ->addWidget(vidScrubber);
+    //scrubbers ->addWidget(audioScrubber);
+    //newMedia ->addWidget(newVidButton);
+    //newMedia ->addWidget(newAudioButton);
 
-    footer->addLayout(scrubbers);
-    footer->addLayout(newMedia);
+    //footer->addWidget(scrubber);
+    //footer->addLayout(newMedia);
 
     window.setLayout(screen);
     window.setWindowTitle("Tomeo");
@@ -169,8 +172,9 @@ int main(int argc, char *argv[]) {
     // add the video and the buttons to the top level widget
     screen->addLayout(header);
     screen->addWidget(videoWidget);
+    screen->addWidget(scrubber);
     screen->addLayout(footer);
-    screen->addWidget(buttonWidget);
+    //screen->addWidget(buttonWidget);
 
 
     // showtime!
