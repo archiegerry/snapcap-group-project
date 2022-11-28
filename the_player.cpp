@@ -32,3 +32,8 @@ void ThePlayer::jumpTo (TheButtonInfo* button) {
     setMedia( * button -> url);
     play();
 }
+
+void ThePlayer::toStart() {
+    pause();
+    setPosition(0);
+}
