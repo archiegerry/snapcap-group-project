@@ -24,6 +24,13 @@
 #include <QtCore/QDirIterator>
 #include "the_player.h"
 #include "the_button.h"
+#include <QtWidgets>
+#include <QtGui>
+
+#include "scrub.h"
+#include "headerButtons.h"
+#include "newMedia.h"
+
 
 // read in videos and thumbnails to this directory
 std::vector<TheButtonInfo> getInfoIn (std::string loc) {
@@ -118,14 +125,24 @@ int main(int argc, char *argv[]) {
 
     // create the main window and layout
     QWidget window;
-    QVBoxLayout *top = new QVBoxLayout();
-    window.setLayout(top);
-    window.setWindowTitle("tomeo");
-    window.setMinimumSize(800, 680);
+
+    QVBoxLayout *screen = new QVBoxLayout();
+    QHBoxLayout *footer = new QHBoxLayout();
+
+    headerButtons * header = new headerButtons();
+    Scrub * scrubber = new Scrub();
+    newMedia * mediaButtons = new newMedia();
+
+    window.setLayout(screen);
+    window.setWindowTitle("Tomeo");
+    window.setMinimumSize(375, 812);     //Size of an iPhone X's viewport
 
     // add the video and the buttons to the top level widget
-    top->addWidget(videoWidget);
-    top->addWidget(buttonWidget);
+    screen->addWidget(header);
+    screen->addWidget(videoWidget);
+    footer->addWidget(scrubber, 9);
+    footer->addWidget(mediaButtons, 1);
+    screen->addLayout(footer);
 
     // showtime!
     window.show();
