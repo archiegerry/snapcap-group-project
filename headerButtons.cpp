@@ -16,7 +16,7 @@ void headerButtons::createHeader()
 
     QPushButton * newProject = new QPushButton("New");
     QPushButton * loadProject = new QPushButton("Load");
-    QPushButton * settings = new QPushButton("Settings");
+    settings = new QPushButton("Settings");
 
     newProject -> setFixedSize(QSize(60,30));
     settings -> setFixedSize(QSize(100,30));
