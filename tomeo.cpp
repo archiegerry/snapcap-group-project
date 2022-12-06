@@ -30,6 +30,7 @@
 #include "scrub.h"
 #include "headerButtons.h"
 #include "newMedia.h"
+#include "settings_page.h"
 
 
 // read in videos and thumbnails to this directory
@@ -132,6 +133,10 @@ int main(int argc, char *argv[]) {
     headerButtons * header = new headerButtons();
     Scrub * scrubber = new Scrub();
     newMedia * mediaButtons = new newMedia();
+
+    QPushButton * settingsButton = header->getSettings();
+
+    SettingsPage * settingsPage = new SettingsPage(&window, settingsButton);
 
     window.setLayout(screen);
     window.setWindowTitle("Tomeo");
