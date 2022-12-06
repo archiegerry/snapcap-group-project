@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
     screen->addWidget(header);
     screen->addWidget(videoWidget);
     footer->addWidget(scrubber, 9);
-    footer->addWidget(mediaButtons, 1);
+    //footer->addWidget(mediaButtons, 1);
     screen->addLayout(footer);
 
     // showtime!

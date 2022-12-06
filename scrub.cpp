@@ -1,5 +1,4 @@
 #include "scrub.h"
-#include "icon.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <string>
@@ -7,6 +6,7 @@
 Scrub::Scrub()
 {
     setWindowTitle("2811: Coursework 1");
+    //setMinimumSize(320, 320);
     setMaximumSize(1280, 720);
 
     createWidgets();
@@ -23,30 +23,20 @@ void Scrub::createWidgets()
     QWidget * videobar = new QWidget();
     audiobar->setMaximumHeight(1000);
     videobar->setMaximumHeight(1000);
+    audiobar->setMaximumHeight(100);
+    videobar->setMaximumHeight(100);
     QHBoxLayout * audiobarLayout = new QHBoxLayout();
     QHBoxLayout * videobarLayout = new QHBoxLayout();
 
     QWidget * videos= new QWidget;
     QWidget * audios= new QWidget;
 
-    QHBoxLayout * videoslayout = new QHBoxLayout();
-    QHBoxLayout * audioslayout = new QHBoxLayout();
-
     for (int i=0;i<4;i++){
-        QString name =QString::fromStdString("Aud "+std::to_string(i+1)) ;
-        Icon * audio = new Icon(QString(name));
-        audio->setStyleSheet("QLabel { background-color : red }");
-        QObject::connect(audio,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedAudio()));
 
-        audioslayout->addWidget(audio);
+        addAudio();
     }
     for (int i=0;i<4;i++){
-        QString name =QString::fromStdString("Vid "+std::to_string(i+1)) ;
-        Icon * video = new Icon(QString(name));
-        video->setStyleSheet("QLabel { background-color : blue }");
-        QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedVideo()));
-
-        videoslayout->addWidget(video);
+        addVideo();
     }
 
     audios->setLayout(audioslayout);
@@ -54,6 +44,19 @@ void Scrub::createWidgets()
     videos->setLayout(videoslayout);
     videobarLayout->addWidget(videos);
 
+    QPushButton * addaudiobutton = new QPushButton();
+    addaudiobutton->setMaximumSize(25,25);
+    addaudiobutton->setText("+");
+    //add audio
+    QObject::connect(addaudiobutton,SIGNAL(clicked()),this,SLOT(addAudio()));
+    audiobarLayout->addWidget(addaudiobutton);
+    QPushButton * addvideobutton = new QPushButton();
+
+    addvideobutton->setMaximumSize(25,25);
+    addvideobutton->setText("+");
+    //add video
+    QObject::connect(addvideobutton,SIGNAL(clicked()),this,SLOT(addVideo()));
+    videobarLayout->addWidget(addvideobutton);
 
     QGridLayout * audiobuttonlayout = new QGridLayout();
     QGridLayout * videobuttonlayout = new QGridLayout();
@@ -111,17 +114,34 @@ void Scrub::createWidgets()
 //    }
 //}
 
-void Scrub::toggleExpandedVideo()
+void Scrub::addAudio()
 {
-    videooptions->setVisible(!videooptions->isVisible());
-    audiooptions->setVisible(false);
+    QString name =QString::fromStdString("Aud ") ;
+    Icon * audio = new Icon(QString(name));
+    audio->setStyleSheet("QLabel { background-color : red }");
+    QObject::connect(audio,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedAudio()));
+    audioslayout->addWidget(audio);
+}
 
+void Scrub::addVideo()
+{
+    QString name =QString::fromStdString("Vid ");
+    Icon * video = new Icon(QString(name));
+    video->setStyleSheet("QLabel { background-color : blue }");
+    QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedVideo()));
+    videoslayout->addWidget(video);
 }
 
 void Scrub::toggleExpandedAudio()
 {
     audiooptions->setVisible(!audiooptions->isVisible());
     videooptions->setVisible(false);
-
 }
+
+void Scrub::toggleExpandedVideo()
+{
+    videooptions->setVisible(!videooptions->isVisible());
+    audiooptions->setVisible(false);
+}
+
 

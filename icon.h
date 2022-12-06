@@ -4,14 +4,14 @@
 #include <QLabel>
 #include <QMouseEvent>
 
-enum MoveDirection {left,right};
 
 class Icon: public QLabel
 {
     //for signals and slots
     Q_OBJECT
 
-    int x, startx, mousestartx;
+    //global variables for moving
+    int x, startx, globalstartx, mousestartx;
 signals:
     void doubleclicked();
 private slots:
