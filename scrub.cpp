@@ -49,61 +49,55 @@ std::vector<IconInfo> getInfo (std::string loc) {
 
 Scrub::Scrub(std::string loc)
 {
-
-    setWindowTitle("2811: Coursework 1");
-    //setMinimumSize(320, 320);
-    setMaximumSize(1280, 720);
     Iconinfos=getInfo(loc);
-
     createWidgets();
-
-    //box layout for media
-    //box layout for videooptions for media
 }
 
 void Scrub::createWidgets()
 {
+    //whole scrub
     QVBoxLayout * owt = new QVBoxLayout();
 
+    //icons and add
     QWidget * audiobar = new QWidget();
     QWidget * videobar = new QWidget();
-    audiobar->setMaximumHeight(1000);
-    videobar->setMaximumHeight(1000);
-    audiobar->setMaximumHeight(100);
-    videobar->setMaximumHeight(100);
+
     QHBoxLayout * audiobarLayout = new QHBoxLayout();
     QHBoxLayout * videobarLayout = new QHBoxLayout();
 
+    //icons
     QWidget * videos= new QWidget;
     QWidget * audios= new QWidget;
 
-    for (int i=0;i<4;i++){
+//    for (int i=0;i<4;i++){
 
-        addAudio();
-    }
-    for (int i=0;i<4;i++){
-        addVideo();
-    }
+//        addAudio();
+//    }
+//    for (int i=0;i<4;i++){
+//        addVideo();
+//    }
 
+    //videoslayout and audioslayout are global
     audios->setLayout(audioslayout);
     audiobarLayout->addWidget(audios);
     videos->setLayout(videoslayout);
     videobarLayout->addWidget(videos);
 
+    //buttons to add new icons
     QPushButton * addaudiobutton = new QPushButton();
     addaudiobutton->setMaximumSize(25,25);
     addaudiobutton->setText("+");
-    //add audio
+        //addaudio
     QObject::connect(addaudiobutton,SIGNAL(clicked()),this,SLOT(addAudio()));
     audiobarLayout->addWidget(addaudiobutton);
     QPushButton * addvideobutton = new QPushButton();
-
     addvideobutton->setMaximumSize(25,25);
     addvideobutton->setText("+");
-    //add video
+        //add video
     QObject::connect(addvideobutton,SIGNAL(clicked()),this,SLOT(addVideo()));
     videobarLayout->addWidget(addvideobutton);
 
+    //options and effects
     QGridLayout * audiobuttonlayout = new QGridLayout();
     QGridLayout * videobuttonlayout = new QGridLayout();
     audiobuttons.at(0).setText("crop");
