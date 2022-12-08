@@ -49,13 +49,20 @@ void Icon::mouseMoveEvent(QMouseEvent *event)
 
 void Icon::mouseReleaseEvent(QMouseEvent *event)
 {
-    emit jumpTo(info);
+
     qDebug() << "icon: " << * info -> url;;
+
+    //if not drag, play video
+    if (event->globalX()==mousestartx){
+        emit jumpTo(info);
+        return;
+    }
 
     //parent layout
     QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(parentWidget()->layout());
 
     float mousex=event->globalX()-globalstartx;
+
 
     float boxsize=width();
     int difference=int((mousex)/boxsize) - 1*(mousex<0 && layout->indexOf(this)>0);

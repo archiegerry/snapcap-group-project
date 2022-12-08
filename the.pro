@@ -12,7 +12,6 @@ SOURCES += \
         icon.cpp \
         newMedia.cpp \
         scrub.cpp \
-        the_button.cpp \
         the_player.cpp \
         tomeo.cpp \
         settings_page.cpp
@@ -21,9 +20,7 @@ HEADERS += \
     headerButtons.h \
     icon.h \
     newMedia.h \
-    protoypelayout.h \
     scrub.h \
-    the_button.h \
     the_player.h \
     settings_page.h
 
