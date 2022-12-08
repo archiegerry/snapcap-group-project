@@ -153,13 +153,6 @@ void Scrub::createWidgets()
     setLayout(owt);
 }
 
-//void Scrub::mouseDoubleClickEvent (QMouseEvent * event)
-//{
-//    if (event->button() == Qt::LeftButton ){
-//        toggleExpanded();
-//    }
-//}
-
 void Scrub::addAudio()
 {
     QString name =QString::fromStdString("Aud ") ;

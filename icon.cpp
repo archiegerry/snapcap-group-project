@@ -24,6 +24,7 @@ void Icon::init(IconInfo* i) {
     setPixmap( i->icon->pixmap(100) );
     setScaledContents(true);
     info =  i;
+    isInitiated=true;
 }
 
 void Icon::mousePressEvent(QMouseEvent *event)
@@ -50,10 +51,10 @@ void Icon::mouseMoveEvent(QMouseEvent *event)
 void Icon::mouseReleaseEvent(QMouseEvent *event)
 {
 
-    qDebug() << "icon: " << * info -> url;;
+    //qDebug() << "icon: " << * info -> url;
 
     //if not drag, play video
-    if (event->globalX()==mousestartx){
+    if (event->globalX()==mousestartx && isInitiated){
         emit jumpTo(info);
         return;
     }
