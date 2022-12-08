@@ -4,6 +4,16 @@
 #include <QLabel>
 #include <QMouseEvent>
 
+//information about each icon
+class IconInfo {
+
+public:
+    QUrl* url; // video file to play
+    QIcon* icon; // icon to display
+
+    IconInfo ( QUrl* url, QIcon* icon) : url (url), icon (icon) {}
+};
+
 
 class Icon: public QLabel
 {
@@ -14,11 +24,15 @@ class Icon: public QLabel
     int x, startx, globalstartx, mousestartx;
 signals:
     void doubleclicked();
+    void jumpTo(IconInfo* info);
 private slots:
     void mouseDoubleClickEvent(QMouseEvent *event);
 public:
+    IconInfo * info;
+
     Icon();
     Icon(QString name);
+    void init(IconInfo * i);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *);

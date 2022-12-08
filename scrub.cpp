@@ -2,12 +2,58 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <string>
+#include <QDirIterator>
+#include <QImageReader>
+#include <QDebug>
 
-Scrub::Scrub()
+// read in videos and thumbnails to this directory
+std::vector<IconInfo> getInfo (std::string loc) {
+
+    std::vector<IconInfo> out =  std::vector<IconInfo>();
+    QDir dir(QString::fromStdString(loc) );
+    QDirIterator it(dir);
+
+    while (it.hasNext()) { // for all files
+
+        QString f = it.next();
+
+            if (f.contains("."))
+
+#if defined(_WIN32)
+            if (f.contains(".wmv"))  { // windows
+#else
+            if (f.contains(".mp4") || f.contains("MOV"))  { // mac/linux
+#endif
+
+            QString thumb = f.left( f .length() - 4) +".png";
+            if (QFile(thumb).exists()) { // if a png thumbnail exists
+                QImageReader *imageReader = new QImageReader(thumb);
+                    QImage sprite = imageReader->read(); // read the thumbnail
+                    if (!sprite.isNull()) {
+                        QIcon* ico = new QIcon(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
+                        QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
+                        out . push_back(IconInfo( url , ico  ) ); // add to the output list
+                    }
+                    else
+                        qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb << endl;
+            }
+            else
+                qDebug() << "warning: skipping video because I couldn't find thumbnail " << thumb << endl;
+        }
+    }
+
+    return out;
+}
+
+
+
+Scrub::Scrub(std::string loc)
 {
+
     setWindowTitle("2811: Coursework 1");
     //setMinimumSize(320, 320);
     setMaximumSize(1280, 720);
+    Iconinfos=getInfo(loc);
 
     createWidgets();
 
@@ -125,10 +171,14 @@ void Scrub::addAudio()
 
 void Scrub::addVideo()
 {
+
     QString name =QString::fromStdString("Vid ");
     Icon * video = new Icon(QString(name));
     video->setStyleSheet("QLabel { background-color : blue }");
     QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedVideo()));
+    QObject::connect(video,&Icon::jumpTo, this, &Scrub::jumptochain); // when clicked, tell the player to play.
+
+    video->init(&Iconinfos.at(rand() % 4));
     videoslayout->addWidget(video);
 }
 
@@ -143,5 +193,6 @@ void Scrub::toggleExpandedVideo()
     videooptions->setVisible(!videooptions->isVisible());
     audiooptions->setVisible(false);
 }
+
 
 

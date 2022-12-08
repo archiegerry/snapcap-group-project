@@ -18,18 +18,27 @@ class Scrub : public QWidget
     Q_OBJECT
 
 public:
-    Scrub();
+    Scrub(std::string loc);
+
+//slots:
+    //void jumpTo(IconInfo*);
 
 private slots:
 
     void toggleExpandedVideo();
     void toggleExpandedAudio();
-    //void mouseDoubleClickEvent (QMouseEvent * event);
 
-private slots:
-    //void toggleExpanded();
     void addAudio();
     void addVideo();
+
+    //void mouseDoubleClickEvent (QMouseEvent * event);
+
+
+
+signals:
+    void jumptochain(IconInfo* info);
+    //void toggleExpanded();
+
 
 private:
     std::vector<QPushButton> videobuttons=std::vector<QPushButton>(8);
@@ -38,6 +47,7 @@ private:
     QWidget * videooptions = new QWidget;
     QHBoxLayout * videoslayout = new QHBoxLayout();
     QHBoxLayout * audioslayout = new QHBoxLayout();
+    std::vector<IconInfo> Iconinfos;
 protected:
     void createWidgets();
 };

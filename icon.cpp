@@ -1,6 +1,9 @@
 #include "icon.h"
 #include "QHBoxLayout"
 #include <QDebug>
+#include <QIcon>
+
+
 
 
 Icon::Icon() : QLabel()
@@ -15,6 +18,12 @@ Icon::Icon(QString name) : QLabel()
     setMinimumHeight(35);
     setMouseTracking(true);
 
+}
+
+void Icon::init(IconInfo* i) {
+    setPixmap( i->icon->pixmap(100) );
+    setScaledContents(true);
+    info =  i;
 }
 
 void Icon::mousePressEvent(QMouseEvent *event)
@@ -40,6 +49,9 @@ void Icon::mouseMoveEvent(QMouseEvent *event)
 
 void Icon::mouseReleaseEvent(QMouseEvent *event)
 {
+    emit jumpTo(info);
+    qDebug() << "icon: " << * info -> url;;
+
     //parent layout
     QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(parentWidget()->layout());
 
@@ -74,4 +86,6 @@ void Icon::mouseDoubleClickEvent(QMouseEvent *event)
         emit doubleclicked();
     }
 }
+
+
 
