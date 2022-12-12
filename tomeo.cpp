@@ -31,6 +31,8 @@
 #include "headerButtons.h"
 #include "newMedia.h"
 #include "settings_page.h"
+#include "toolbox.h"
+#include "tool.h"
 
 
 // read in videos and thumbnails to this directory
@@ -137,6 +139,15 @@ int main(int argc, char *argv[]) {
     QPushButton * settingsButton = header->getSettings();
 
     SettingsPage * settingsPage = new SettingsPage(&window, settingsButton);
+
+    // the toolbox and tools which provide video editing options
+    Tool textTool("Text", QIcon(":/draw-text.svg"));
+    Tool filter("Filter", QIcon(":/draw-filter.svg"));
+    ToolBox *tb = new ToolBox(&window);
+    tb->addTool(textTool);
+    tb->addBreak();
+    tb->addTool(filter);
+    tb->addBreak();
 
     window.setLayout(screen);
     window.setWindowTitle("Tomeo");
