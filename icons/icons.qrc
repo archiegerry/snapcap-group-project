@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>draw-text.svg</file>
+	<file>draw-filter.svg</file>
+    </qresource>
+</RCC>
