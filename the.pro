@@ -14,8 +14,7 @@ SOURCES += \
         scrub.cpp \
         the_button.cpp \
         the_player.cpp \
-        tomeo.cpp \
-        settings_page.cpp
+        tomeo.cpp
 
 HEADERS += \
     headerButtons.h \
@@ -24,11 +23,12 @@ HEADERS += \
     protoypelayout.h \
     scrub.h \
     the_button.h \
-    the_player.h \
-    settings_page.h
+    the_player.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+RESOURCES += \
+    icons/icons.qrc
