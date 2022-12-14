@@ -23,13 +23,11 @@
 #include <QtCore/QDir>
 #include <QtCore/QDirIterator>
 #include "the_player.h"
-#include "the_button.h"
 #include <QtWidgets>
 #include <QtGui>
 
 #include "scrub.h"
 #include "headerButtons.h"
-#include "newMedia.h"
 #include "settings_page.h"
 #include "the_player.h"
 #include "toolbox.h"
