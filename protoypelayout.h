@@ -1,4 +1,0 @@
-#ifndef PROTOYPELAYOUT_H
-#define PROTOYPELAYOUT_H
-
-#endif // PROTOYPELAYOUT_H
