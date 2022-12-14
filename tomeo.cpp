@@ -31,7 +31,6 @@
 #include "icon.h"
 #include "scrub.h"
 #include "headerButtons.h"
-#include "newMedia.h"
 #include "settings_page.h"
 
 
@@ -58,9 +57,8 @@ int main(int argc, char *argv[]) {
 
     headerButtons * header = new headerButtons();
     Scrub * scrub = new Scrub(std::string(argv[1]));
-    QObject::connect(scrub, &Scrub::jumptochain, player, &ThePlayer::jumpTo); // when clicked, tell the player to play.
-
-    newMedia * mediaButtons = new newMedia();
+    QObject::connect(scrub, &Scrub::jumpto, player, &ThePlayer::jumpTo); // when clicked, tell the player to play.
+    QObject::connect(player, &ThePlayer::ended, scrub, &Scrub::nextVideo);
 
     QPushButton * settingsButton = header->getSettings();
 

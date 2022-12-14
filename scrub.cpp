@@ -118,7 +118,7 @@ void Scrub::createWidgets()
     videobuttons.at(7).setText("video option");
 
 
-
+    //add options and effects
     for (int i=0;i<NO_OF_AUDIOOPTIONS;i++){
         audiobuttons.at(i).setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
         audiobuttons.at(i).setStyleSheet("background-color: red");
@@ -132,7 +132,6 @@ void Scrub::createWidgets()
         videobuttonlayout->addWidget(&videobuttons.at(i),i/4,i%4);
     }
     videooptions->setLayout(videobuttonlayout);
-
 
     audiooptions->setVisible(false);
     videooptions->setVisible(false);
@@ -181,5 +180,22 @@ void Scrub::toggleExpandedVideo()
     audiooptions->setVisible(false);
 }
 
+void Scrub::nextVideo()
+{
+    if (playingIndex<videoslayout->count()-1){
+
+        playingIndex+=1;
+        Icon* nexticon=static_cast<Icon*>(videoslayout->itemAt(playingIndex)->widget());
+        nexticon->play();
+        //jumptochain(nexticon->info,playingIndex);
+    }
+}
+
+void Scrub::jumptochain(IconInfo * info, int index)
+{
+    playingIndex=index;
+    //qDebug() << playingIndex;
+    emit jumpto(info);
+}
 
 

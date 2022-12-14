@@ -16,20 +16,12 @@ class ThePlayer : public QMediaPlayer {
 
 Q_OBJECT
 
-private:
-    std::vector<IconInfo>* infos;
-    std::vector<Icon*>* buttons;
-    //QTimer* mTimer;
-    long updateCount = 0;
 
 public:
     ThePlayer() : QMediaPlayer(NULL) {
         setVolume(0); // be slightly less annoying
         connect (this, SIGNAL (stateChanged(QMediaPlayer::State)), this, SLOT (playStateChanged(QMediaPlayer::State)) );
     }
-
-    // all buttons have been setup, store pointers here
-    void setContent(std::vector<Icon*>* b, std::vector<IconInfo>* i);
 
 private slots:
 
@@ -39,6 +31,9 @@ public slots:
 
     // start playing this IconInfo
     void jumpTo (IconInfo* button);
+
+signals:
+    void ended();
 };
 
 #endif //CW2_THE_PLAYER_H

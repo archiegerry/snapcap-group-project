@@ -19,6 +19,7 @@ class Scrub : public QWidget
 
 public:
     Scrub(std::string loc);
+    int playingIndex;
 
 
 private slots:
@@ -29,12 +30,12 @@ private slots:
     void addAudio();
     void addVideo();
 
-
-
+public slots:
+    void nextVideo();
+    void jumptochain(IconInfo* info, int index);
 
 signals:
-    void jumptochain(IconInfo* info);
-
+    void jumpto(IconInfo* info);
 
 private:
     std::vector<QPushButton> videobuttons=std::vector<QPushButton>(8);

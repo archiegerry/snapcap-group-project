@@ -51,13 +51,7 @@ void Icon::mouseMoveEvent(QMouseEvent *event)
 void Icon::mouseReleaseEvent(QMouseEvent *event)
 {
 
-    //qDebug() << "icon: " << * info -> url;
 
-    //if not drag, play video
-    if (event->globalX()==mousestartx && isInitiated){
-        emit jumpTo(info);
-        return;
-    }
 
     //parent layout
     QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(parentWidget()->layout());
@@ -75,17 +69,22 @@ void Icon::mouseReleaseEvent(QMouseEvent *event)
     qDebug() << globalstartx << mousex << boxsize << difference;
 
     layout->removeWidget(this);
+
     //if dragged over play button
     if (newIndex > layout->count()){
         delete this;
     }
     else{
         layout->insertWidget(newIndex,this);
+        //if not drag, play video
+        if (isInitiated){
+            play();
+            return;
+        }
     }
 
 }
 
-//void Icon::doubleclicked(){}
 
 void Icon::mouseDoubleClickEvent(QMouseEvent *event)
 {
@@ -95,5 +94,11 @@ void Icon::mouseDoubleClickEvent(QMouseEvent *event)
     }
 }
 
+void Icon::play()
+{
+    //parent layout
+    QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(parentWidget()->layout());
+    emit jumpTo(info,layout->indexOf(this));
+}
 
 

@@ -10,7 +10,6 @@ CONFIG += c++11
 SOURCES += \
         headerButtons.cpp \
         icon.cpp \
-        newMedia.cpp \
         scrub.cpp \
         the_player.cpp \
         tomeo.cpp \
@@ -19,7 +18,6 @@ SOURCES += \
 HEADERS += \
     headerButtons.h \
     icon.h \
-    newMedia.h \
     scrub.h \
     the_player.h \
     settings_page.h

@@ -22,9 +22,12 @@ class Icon: public QLabel
 
     //global variables for moving
     int x, startx, globalstartx, mousestartx;
+
+
 signals:
     void doubleclicked();
-    void jumpTo(IconInfo* info);
+    void jumpTo(IconInfo* info, int index);
+
 private slots:
     void mouseDoubleClickEvent(QMouseEvent *event);
 public:
@@ -37,6 +40,7 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *);
     bool isInitiated=false;
+    void play();
 
 
 
