@@ -28,3 +28,7 @@ void ThePlayer::toStart() {
 void ThePlayer::toEnd() {
     setPosition(QMediaPlayer::duration()-1);
 }
+
+void ThePlayer::setVol(int volume) {
+    setVolume(volume);
+}

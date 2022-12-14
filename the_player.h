@@ -37,6 +37,9 @@ public slots:
     // skip to end
     void toEnd();
 
+    // set volume
+    void setVol(int volume);
+
 signals:
     void ended();
 };

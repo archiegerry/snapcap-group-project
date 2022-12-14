@@ -70,10 +70,17 @@ int main(int argc, char *argv[]) {
     QPushButton* pauseButton = new QPushButton;
     QPushButton* playButton = new QPushButton;
 
+    QSlider* volSlider = new QSlider(Qt::Horizontal);
+    volSlider->setRange(0,100);
+    volSlider->setFixedHeight(100);
+    volSlider->setValue(0);
+    volSlider->connect(volSlider, SIGNAL(valueChanged(int)), player, SLOT(&ThePlayer::setVol(int)));
+
     mediaControls->addWidget(rewindButton);
     mediaControls->addWidget(pauseButton);
     mediaControls->addWidget(playButton);
     mediaControls->addWidget(skipButton);
+    mediaControls->addWidget(volSlider);
     mediaControls->setSpacing(0);
 
     playButton->setIcon(QIcon(":/play.png"));
@@ -85,15 +92,18 @@ int main(int argc, char *argv[]) {
     skipButton->setIcon(QIcon(":/fast_forward.png"));
     skipButton->connect(skipButton, &QPushButton::clicked, player, &ThePlayer::toEnd);
 
+
     playButton -> setFixedHeight(20);
     pauseButton -> setFixedHeight(20);
     rewindButton -> setFixedHeight(20);
     skipButton -> setFixedHeight(20);
+    volSlider -> setFixedHeight(20);
 
     mediaControls->setStretch(0,1);
     mediaControls->setStretch(1,1);
     mediaControls->setStretch(2,1);
     mediaControls->setStretch(3,1);
+    mediaControls->setStretch(4,1);
 
     Tool textTool("Text", QIcon(":/draw-text.svg"));
     Tool filter("Filter", QIcon(":/draw-filter.svg"));
