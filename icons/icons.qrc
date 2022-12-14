@@ -9,5 +9,7 @@
         <file>fast_forward.png</file>
         <file>pause.png</file>
         <file>play.png</file>
+	<file>draw-filter.svg</file>
+	<file>draw-text.svg</file>
     </qresource>
 </RCC>
