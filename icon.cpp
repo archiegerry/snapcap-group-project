@@ -1,5 +1,9 @@
 #include "icon.h"
 #include "QHBoxLayout"
+#include <QDebug>
+#include <QIcon>
+
+
 
 
 Icon::Icon() : QLabel()
@@ -16,39 +20,71 @@ Icon::Icon(QString name) : QLabel()
 
 }
 
+void Icon::init(IconInfo* i) {
+    setPixmap( i->icon->pixmap(100) );
+    setScaledContents(true);
+    info =  i;
+    isInitiated=true;
+}
+
 void Icon::mousePressEvent(QMouseEvent *event)
 {
     //bring to front
     raise();
     if (event->buttons() == Qt::LeftButton){
-        startx = geometry().x();
+        //find start position global to screen
+        startx=geometry().x();
+        globalstartx = mapToGlobal(parentWidget()->pos()).x()-11;
         mousestartx=event->globalX();
+        qDebug() << startx << mousestartx;
     }
 }
 
 void Icon::mouseMoveEvent(QMouseEvent *event)
 {
     if (!(event->buttons() == Qt::LeftButton)) return;
-    x=event->globalX()-mousestartx+startx;
+    x=startx+event->globalX()-mousestartx;
     if(!(geometry().x()<parentWidget()->geometry().x() & x<0))
         move(x,geometry().y());
 }
 
 void Icon::mouseReleaseEvent(QMouseEvent *event)
 {
+
+
+
+    //parent layout
     QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(parentWidget()->layout());
 
-    float mousex=event->globalX()-parentWidget()->x();
-    float boxsize=parentWidget()->width()/layout->count();
-    int newIndex=int(mousex/boxsize);
+    float mousex=event->globalX()-globalstartx;
+
+
+    float boxsize=width();
+    int difference=int((mousex)/boxsize) - 1*(mousex<0 && layout->indexOf(this)>0);
+    int newIndex=layout->indexOf(this) + int(difference);
+    if (newIndex < 0) newIndex = 0;
+
+
+
+    qDebug() << globalstartx << mousex << boxsize << difference;
 
     layout->removeWidget(this);
-    layout->insertWidget(newIndex,this);
 
-    move(x,y());
+    //if dragged over play button
+    if (newIndex > layout->count()){
+        delete this;
+    }
+    else{
+        layout->insertWidget(newIndex,this);
+        //if not drag, play video
+        if (isInitiated){
+            play();
+            return;
+        }
+    }
+
 }
 
-//void Icon::doubleclicked(){}
 
 void Icon::mouseDoubleClickEvent(QMouseEvent *event)
 {
@@ -58,3 +94,9 @@ void Icon::mouseDoubleClickEvent(QMouseEvent *event)
     }
 }
 
+void Icon::play()
+{
+    //parent layout
+    QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(parentWidget()->layout());
+    emit jumpTo(info,layout->indexOf(this));
+}

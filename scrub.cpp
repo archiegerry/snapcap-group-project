@@ -1,59 +1,103 @@
 #include "scrub.h"
-#include "icon.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <string>
+#include <QDirIterator>
+#include <QImageReader>
+#include <QDebug>
 
-Scrub::Scrub()
+// read in videos and thumbnails to this directory
+std::vector<IconInfo> getInfo (std::string loc) {
+
+    std::vector<IconInfo> out =  std::vector<IconInfo>();
+    QDir dir(QString::fromStdString(loc) );
+    QDirIterator it(dir);
+
+    while (it.hasNext()) { // for all files
+
+        QString f = it.next();
+
+            if (f.contains("."))
+
+#if defined(_WIN32)
+            if (f.contains(".wmv"))  { // windows
+#else
+            if (f.contains(".mp4") || f.contains("MOV"))  { // mac/linux
+#endif
+
+            QString thumb = f.left( f .length() - 4) +".png";
+            if (QFile(thumb).exists()) { // if a png thumbnail exists
+                QImageReader *imageReader = new QImageReader(thumb);
+                    QImage sprite = imageReader->read(); // read the thumbnail
+                    if (!sprite.isNull()) {
+                        QIcon* ico = new QIcon(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
+                        QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
+                        out . push_back(IconInfo( url , ico  ) ); // add to the output list
+                    }
+                    else
+                        qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb << endl;
+            }
+            else
+                qDebug() << "warning: skipping video because I couldn't find thumbnail " << thumb << endl;
+        }
+    }
+
+    return out;
+}
+
+
+
+Scrub::Scrub(std::string loc)
 {
-    setWindowTitle("2811: Coursework 1");
-
+    Iconinfos=getInfo(loc);
     createWidgets();
-
-    //box layout for media
-    //box layout for videooptions for media
 }
 
 void Scrub::createWidgets()
 {
+    //whole scrub
     QVBoxLayout * owt = new QVBoxLayout();
 
+    //icons and add
     QWidget * audiobar = new QWidget();
     QWidget * videobar = new QWidget();
-    audiobar->setMaximumHeight(1000);
-    videobar->setMaximumHeight(1000);
+
     QHBoxLayout * audiobarLayout = new QHBoxLayout();
     QHBoxLayout * videobarLayout = new QHBoxLayout();
 
+    //icons
     QWidget * videos= new QWidget;
     QWidget * audios= new QWidget;
 
-    QHBoxLayout * videoslayout = new QHBoxLayout();
-    QHBoxLayout * audioslayout = new QHBoxLayout();
+//    for (int i=0;i<4;i++){
 
-    for (int i=0;i<4;i++){
-        QString name =QString::fromStdString("Aud "+std::to_string(i+1)) ;
-        Icon * audio = new Icon(QString(name));
-        audio->setStyleSheet("QLabel { background-color : red }");
-        QObject::connect(audio,SIGNAL(doubleclicked()),this,SLOT(toggleExpanded()));
+//        addAudio();
+//    }
+//    for (int i=0;i<4;i++){
+//        addVideo();
+//    }
 
-        audioslayout->addWidget(audio);
-    }
-    for (int i=0;i<4;i++){
-        QString name =QString::fromStdString("Vid "+std::to_string(i+1)) ;
-        Icon * video = new Icon(QString(name));
-        video->setStyleSheet("QLabel { background-color : blue }");
-        QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpanded()));
-
-        videoslayout->addWidget(video);
-    }
-
+    //videoslayout and audioslayout are global
     audios->setLayout(audioslayout);
     audiobarLayout->addWidget(audios);
     videos->setLayout(videoslayout);
     videobarLayout->addWidget(videos);
 
+    //buttons to add new icons
+    QPushButton * addaudiobutton = new QPushButton();
+    addaudiobutton->setMaximumSize(25,25);
+    addaudiobutton->setIcon(QIcon(":/plus.png"));
+        //addaudio
+    QObject::connect(addaudiobutton,SIGNAL(clicked()),this,SLOT(addAudio()));
+    audiobarLayout->addWidget(addaudiobutton);
+    QPushButton * addvideobutton = new QPushButton();
+    addvideobutton->setMaximumSize(25,25);
+    addvideobutton->setIcon(QIcon(":/plus.png"));
+        //add video
+    QObject::connect(addvideobutton,SIGNAL(clicked()),this,SLOT(addVideo()));
+    videobarLayout->addWidget(addvideobutton);
 
+    //options and effects
     QGridLayout * audiobuttonlayout = new QGridLayout();
     QGridLayout * videobuttonlayout = new QGridLayout();
     audiobuttons.at(0).setText("crop");
@@ -74,7 +118,7 @@ void Scrub::createWidgets()
     videobuttons.at(7).setText("video option");
 
 
-
+    //add options and effects
     for (int i=0;i<NO_OF_AUDIOOPTIONS;i++){
         audiobuttons.at(i).setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
         audiobuttons.at(i).setStyleSheet("background-color: red");
@@ -89,7 +133,6 @@ void Scrub::createWidgets()
     }
     videooptions->setLayout(videobuttonlayout);
 
-
     audiooptions->setVisible(false);
     videooptions->setVisible(false);
 
@@ -103,25 +146,54 @@ void Scrub::createWidgets()
     setLayout(owt);
 }
 
-void Scrub::mouseDoubleClickEvent (QMouseEvent * event)
+void Scrub::addAudio()
 {
-    if (event->button() == Qt::LeftButton ){
-        toggleExpanded();
+    QString name =QString::fromStdString("Aud ") ;
+    Icon * audio = new Icon(QString(name));
+    audio->setStyleSheet("QLabel { background-color : red }");
+    QObject::connect(audio,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedAudio()));
+    audioslayout->addWidget(audio);
+}
+
+void Scrub::addVideo()
+{
+
+    QString name =QString::fromStdString("Vid ");
+    Icon * video = new Icon(QString(name));
+    video->setStyleSheet("QLabel { background-color : blue }");
+    QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedVideo()));
+    QObject::connect(video,&Icon::jumpTo, this, &Scrub::jumptochain); // when clicked, tell the player to play.
+
+    video->init(&Iconinfos.at(rand() % 4));
+    videoslayout->addWidget(video);
+}
+
+void Scrub::toggleExpandedAudio()
+{
+    audiooptions->setVisible(!audiooptions->isVisible());
+    videooptions->setVisible(false);
+}
+
+void Scrub::toggleExpandedVideo()
+{
+    videooptions->setVisible(!videooptions->isVisible());
+    audiooptions->setVisible(false);
+}
+
+void Scrub::nextVideo()
+{
+    if (playingIndex<videoslayout->count()-1){
+
+        playingIndex+=1;
+        Icon* nexticon=static_cast<Icon*>(videoslayout->itemAt(playingIndex)->widget());
+        nexticon->play();
+        //jumptochain(nexticon->info,playingIndex);
     }
 }
 
-void Scrub::toggleExpanded()
+void Scrub::jumptochain(IconInfo * info, int index)
 {
-    if (videooptions->isVisible() & !audiooptions->isVisible()){
-        videooptions->setVisible(false);
-    }
-    else if (!videooptions->isVisible() & !audiooptions->isVisible()) {
-        audiooptions->setVisible(true);
-    }
-    else{
-        audiooptions->setVisible(videooptions->isVisible());
-        videooptions->setVisible(!videooptions->isVisible());
-    }
+    playingIndex=index;
+    //qDebug() << playingIndex;
+    emit jumpto(info);
 }
-
-
