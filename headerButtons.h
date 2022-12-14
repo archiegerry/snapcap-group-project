@@ -13,6 +13,7 @@ public:
     headerButtons();
     QPushButton * getSettings(){ return settings; }
 
+
 protected:
     void createHeader();
     QPushButton * settings;

@@ -21,6 +21,7 @@ private:
     std::vector<TheButton*>* buttons;
     QTimer* mTimer;
     long updateCount = 0;
+    bool state;
 
 public:
     ThePlayer() : QMediaPlayer(NULL) {
@@ -31,6 +32,7 @@ public:
         mTimer->setInterval(1000); // 1000ms is one second between ...
         mTimer->start();
         connect( mTimer, SIGNAL (timeout()), SLOT ( shuffle() ) ); // ...running shuffle method
+        state = true;
     }
 
     // all buttons have been setup, store pointers here
@@ -47,6 +49,11 @@ public slots:
 
     // start playing this ButtonInfo
     void jumpTo (TheButtonInfo* button);
+
+    // rewind to start of video
+    void toStart();
+    // skip to end
+    void toEnd();
 };
 
 #endif //CW2_THE_PLAYER_H

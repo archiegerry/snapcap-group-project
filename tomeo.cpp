@@ -31,7 +31,9 @@
 #include "headerButtons.h"
 #include "newMedia.h"
 #include "settings_page.h"
-
+#include "the_player.h"
+#include "toolbox.h"
+#include "tool.h"
 
 // read in videos and thumbnails to this directory
 std::vector<TheButtonInfo> getInfoIn (std::string loc) {
@@ -132,11 +134,51 @@ int main(int argc, char *argv[]) {
 
     headerButtons * header = new headerButtons();
     Scrub * scrubber = new Scrub();
-    newMedia * mediaButtons = new newMedia();
+    newMedia * addMedia = new newMedia();
 
     QPushButton * settingsButton = header->getSettings();
 
     SettingsPage * settingsPage = new SettingsPage(&window, settingsButton);
+
+    QHBoxLayout *mediaControls = new QHBoxLayout();
+
+    QPushButton* rewindButton = new QPushButton;
+    QPushButton* skipButton = new QPushButton;
+    QPushButton* pauseButton = new QPushButton;
+    QPushButton* playButton = new QPushButton;
+
+    mediaControls->addWidget(rewindButton);
+    mediaControls->addWidget(pauseButton);
+    mediaControls->addWidget(playButton);
+    mediaControls->addWidget(skipButton);
+    mediaControls->setSpacing(0);
+
+    playButton->setIcon(QIcon(":/play.png"));
+    playButton->connect(playButton, &QPushButton::clicked, player, &QMediaPlayer::play);
+    pauseButton->setIcon(QIcon(":/pause.png"));
+    pauseButton->connect(pauseButton, &QPushButton::clicked, player, &QMediaPlayer::pause);
+    rewindButton->setIcon(QIcon(":/backwards.png"));
+    rewindButton->connect(rewindButton, &QPushButton::clicked, player, &ThePlayer::toStart);
+    skipButton->setIcon(QIcon(":/fast_forward.png"));
+    skipButton->connect(skipButton, &QPushButton::clicked, player, &ThePlayer::toEnd);
+
+    playButton -> setFixedHeight(20);
+    pauseButton -> setFixedHeight(20);
+    rewindButton -> setFixedHeight(20);
+    skipButton -> setFixedHeight(20);
+
+    mediaControls->setStretch(0,1);
+    mediaControls->setStretch(1,1);
+    mediaControls->setStretch(2,1);
+    mediaControls->setStretch(3,1);
+
+    Tool textTool("Text", QIcon(":/draw-text.svg"));
+    Tool filter("Filter", QIcon(":/draw-filter.svg"));
+    ToolBox *tb = new ToolBox(&window);
+    tb->addTool(textTool);
+    tb->addBreak();
+    tb->addTool(filter);
+    tb->addBreak();
 
     window.setLayout(screen);
     window.setWindowTitle("Tomeo");
@@ -145,8 +187,9 @@ int main(int argc, char *argv[]) {
     // add the video and the buttons to the top level widget
     screen->addWidget(header);
     screen->addWidget(videoWidget);
+    screen->addLayout(mediaControls);
     footer->addWidget(scrubber, 9);
-    footer->addWidget(mediaButtons, 1);
+    footer->addWidget(addMedia, 1);
     screen->addLayout(footer);
 
     // showtime!

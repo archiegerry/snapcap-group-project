@@ -15,11 +15,10 @@ class Scrub : public QWidget
 
 public:
     Scrub();
-    //void mouseDoubleClickEvent (QMouseEvent * event);
+    void mouseDoubleClickEvent (QMouseEvent * event);
 
 private slots:
-    void toggleExpandedVideo();
-    void toggleExpandedAudio();
+    void toggleExpanded();
 
 private:
     std::vector<QPushButton> videobuttons=std::vector<QPushButton>(8);

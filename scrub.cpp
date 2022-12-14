@@ -7,7 +7,6 @@
 Scrub::Scrub()
 {
     setWindowTitle("2811: Coursework 1");
-    setMaximumSize(1280, 720);
 
     createWidgets();
 
@@ -36,7 +35,7 @@ void Scrub::createWidgets()
         QString name =QString::fromStdString("Aud "+std::to_string(i+1)) ;
         Icon * audio = new Icon(QString(name));
         audio->setStyleSheet("QLabel { background-color : red }");
-        QObject::connect(audio,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedAudio()));
+        QObject::connect(audio,SIGNAL(doubleclicked()),this,SLOT(toggleExpanded()));
 
         audioslayout->addWidget(audio);
     }
@@ -44,7 +43,7 @@ void Scrub::createWidgets()
         QString name =QString::fromStdString("Vid "+std::to_string(i+1)) ;
         Icon * video = new Icon(QString(name));
         video->setStyleSheet("QLabel { background-color : blue }");
-        QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedVideo()));
+        QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpanded()));
 
         videoslayout->addWidget(video);
     }
@@ -104,24 +103,25 @@ void Scrub::createWidgets()
     setLayout(owt);
 }
 
-//void Scrub::mouseDoubleClickEvent (QMouseEvent * event)
-//{
-//    if (event->button() == Qt::LeftButton ){
-//        toggleExpanded();
-//    }
-//}
-
-void Scrub::toggleExpandedVideo()
+void Scrub::mouseDoubleClickEvent (QMouseEvent * event)
 {
-    videooptions->setVisible(!videooptions->isVisible());
-    audiooptions->setVisible(false);
-
+    if (event->button() == Qt::LeftButton ){
+        toggleExpanded();
+    }
 }
 
-void Scrub::toggleExpandedAudio()
+void Scrub::toggleExpanded()
 {
-    audiooptions->setVisible(!audiooptions->isVisible());
-    videooptions->setVisible(false);
-
+    if (videooptions->isVisible() & !audiooptions->isVisible()){
+        videooptions->setVisible(false);
+    }
+    else if (!videooptions->isVisible() & !audiooptions->isVisible()) {
+        audiooptions->setVisible(true);
+    }
+    else{
+        audiooptions->setVisible(videooptions->isVisible());
+        videooptions->setVisible(!videooptions->isVisible());
+    }
 }
+
 
