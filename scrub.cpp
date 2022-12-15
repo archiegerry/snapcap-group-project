@@ -187,7 +187,7 @@ void Scrub::nextVideo()
         playingIndex+=1;
         Icon* nexticon=static_cast<Icon*>(videoslayout->itemAt(playingIndex)->widget());
         nexticon->play();
-        //jumptochain(nexticon->info,playingIndex);
+        jumptochain(nexticon->info,playingIndex);
     }
 }
 
