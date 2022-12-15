@@ -9,7 +9,12 @@
         <file>fast_forward.png</file>
         <file>pause.png</file>
         <file>play.png</file>
-	<file>draw-filter.svg</file>
-	<file>draw-text.svg</file>
+        <file>draw-filter.svg</file>
+        <file>draw-text.svg</file>
+        <file>cut.png</file>
+        <file>eq.png</file>
+        <file>fx.png</file>
+        <file>split.png</file>
+        <file>crop.png</file>
     </qresource>
 </RCC>
