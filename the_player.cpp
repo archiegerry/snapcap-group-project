@@ -26,7 +26,9 @@ void ThePlayer::toStart() {
 }
 
 void ThePlayer::toEnd() {
-    setPosition(QMediaPlayer::duration()-1);
+	qint64 duration = QMediaPlayer::duration();
+	setPosition(duration-1);
+	pause();
 }
 
 void ThePlayer::setVol(int volume) {

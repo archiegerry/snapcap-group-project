@@ -77,27 +77,27 @@ void Scrub::createWidgets()
 //        addVideo();
 //    }
 
-    //videoslayout and audioslayout are global
+	// videoslayout and audioslayout are global
     audios->setLayout(audioslayout);
     audiobarLayout->addWidget(audios);
     videos->setLayout(videoslayout);
     videobarLayout->addWidget(videos);
 
-    //buttons to add new icons
+	// buttons to add new icons
     QPushButton * addaudiobutton = new QPushButton();
     addaudiobutton->setMaximumSize(25,25);
     addaudiobutton->setIcon(QIcon(":/plus.png"));
-        //addaudio
+	// add audio
     QObject::connect(addaudiobutton,SIGNAL(clicked()),this,SLOT(addAudio()));
     audiobarLayout->addWidget(addaudiobutton);
     QPushButton * addvideobutton = new QPushButton();
     addvideobutton->setMaximumSize(25,25);
     addvideobutton->setIcon(QIcon(":/plus.png"));
-        //add video
+	// add video
     QObject::connect(addvideobutton,SIGNAL(clicked()),this,SLOT(addVideo()));
     videobarLayout->addWidget(addvideobutton);
 
-    //options and effects
+	// options and effects
     QGridLayout * audiobuttonlayout = new QGridLayout();
     QGridLayout * videobuttonlayout = new QGridLayout();
     audiobuttons.at(0).setText("crop");
@@ -112,10 +112,10 @@ void Scrub::createWidgets()
     videobuttons.at(1).setText("cut");
     videobuttons.at(2).setText("splice");
     videobuttons.at(3).setText("smth");
-    videobuttons.at(4).setText("fx");
-    videobuttons.at(5).setText("video option");
-    videobuttons.at(6).setText("video option");
-    videobuttons.at(7).setText("video option");
+	videobuttons.at(4).setText("fx");
+	videobuttons.at(5).setText("video option");
+	videobuttons.at(6).setText("video option");
+	videobuttons.at(7).setText("video option");
 
 
     //add options and effects

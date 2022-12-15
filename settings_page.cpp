@@ -11,29 +11,29 @@ SettingsPage::SettingsPage(QWidget *p, QPushButton *b)
     setVisible(false);
 
     move(b->x(), b->y()+200);
-    setWindowTitle("Settings Page");
+	setWindowTitle("Settings Page");
 }
 
 
 void SettingsPage::createWidgets(){
     // Create widgets
-    language = new QLabel("Language:");
-    languageField = new QPushButton("Select Language");
+	language = new QLabel("Language:");
+	languageField = new QPushButton(tr("Languages"));
 
     colourScheme = new QLabel("Colour Scheme:");
-    colourField = new QPushButton("Select Colour Scheme");
+	colourField = new QPushButton(tr("Colour Scheme"));
 
     fontSize = new QLabel("Font Size:");
-    fontSizeField = new QPushButton("Select Font Size");
+	fontSizeField = new QPushButton(tr("Select Font Size"));
 
     shortcuts = new QLabel("Shortcuts:");
-    shortcutField = new QPushButton("Modify Shortcuts");
+	shortcutField = new QPushButton(tr("Keyboard Shortcuts"));
 
     access = new QLabel("Accessibility:");
-    accessField = new QPushButton("Accessibility Options");
+	accessField = new QPushButton(tr("Accessibility Options"));
 
     privacy = new QLabel("Privacy:");
-    privacyField = new QPushButton("Check Privacy Information");
+	privacyField = new QPushButton(tr("Check Privacy Information"));
 
     mainLayout = new QFormLayout();
 }
