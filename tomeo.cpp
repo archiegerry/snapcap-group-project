@@ -37,14 +37,15 @@
 int main(int argc, char *argv[]) {
 
     // let's just check that Qt is operational first
-    qDebug() << "Qt version: " << QT_VERSION_STR << endl;
+	qDebug() << "Qt version: " << QT_VERSION_STR << Qt::endl;
 
     // create the Qt Application
     QApplication app(argc, argv);
 
 	// create the Translator
 	QTranslator translator;
-	bool result = translator.load("translator/the-fra.qm");
+	QString lang = "translator/the-fra.qm";
+	bool result = translator.load(lang);
 	app.installTranslator(&translator);
 
     // the widget that will show the video

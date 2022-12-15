@@ -48,7 +48,6 @@ void SettingsPage::arrangeWidgets(){
     mainLayout->addRow(access, accessField);
     mainLayout->addRow(privacy, privacyField);
     setLayout(mainLayout);
-
 }
 
 void SettingsPage::toggleDisplay(){
