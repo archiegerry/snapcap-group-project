@@ -9,8 +9,8 @@
 #include <QObject>
 #include <QHBoxLayout>
 
-const int NO_OF_VIDEOOPTIONS=8;
-const int NO_OF_AUDIOOPTIONS=8;
+const int NO_OF_VIDEOOPTIONS=4;
+const int NO_OF_AUDIOOPTIONS=4;
 
 class Scrub : public QWidget
 {

@@ -18,6 +18,7 @@ private:
     void createWidgets();
     void arrangeWidgets();
 
+    int *lang=0;
 
     // Pointers to widgets
     QLabel *language;
@@ -38,6 +39,7 @@ private:
 
 private slots:
     void toggleDisplay();
+    void cycleLanguage();
 };
 
 #endif // SETTINGS_PAGE_H
