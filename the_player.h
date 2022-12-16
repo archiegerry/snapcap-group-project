@@ -18,7 +18,7 @@ Q_OBJECT
 
 public:
     ThePlayer() : QMediaPlayer(NULL) {
-        setVolume(5);
+        setVolume(50);
         connect (this, SIGNAL (stateChanged(QMediaPlayer::State)), this, SLOT (playStateChanged(QMediaPlayer::State)) );
     }
 
