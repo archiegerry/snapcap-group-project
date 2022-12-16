@@ -7,60 +7,9 @@
 #include <QDebug>
 #include <QFileDialog>
 
-// read in videos and thumbnails to this directory
-std::vector<IconInfo> getInfo (std::string loc) {
-
-    std::vector<IconInfo> out =  std::vector<IconInfo>();
-    QDir dir(QString::fromStdString(loc) );
-    QDirIterator it(dir);
-
-    while (it.hasNext()) { // for all files
-
-        QString f = it.next();
-
-            if (f.contains("."))
-
-#if defined(_WIN32)
-            if (f.contains(".wmv"))  { // windows
-#else
-            if (f.contains(".mp4") || f.contains("MOV"))  { // mac/linux
-#endif
-
-            QString thumb = f.left( f .length() - 4) +".png";
-            if (QFile(thumb).exists()) { // if a png thumbnail exists
-                QImageReader *imageReader = new QImageReader(thumb);
-                    QImage sprite = imageReader->read(); // read the thumbnail
-                    if (!sprite.isNull()) {
-                        QIcon* ico = new QIcon(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
-                        QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
-                        out . push_back(IconInfo( url , ico  ) ); // add to the output list
-                    }
-                    else
-                        qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb << endl;
-            }
-            else
-                qDebug() << "warning: skipping video because I couldn't find thumbnail " << thumb << endl;
-        }
-    }
-
-    return out;
-}
-
 
 // read in videos and thumbnails to this directory
 IconInfo * getInfo (QString f) {
-
-    //while (it.hasNext()) { // for all files
-
-    //QString f = it.next();
-
-//    if (f.contains("."))
-
-//#if defined(_WIN32)
-//        if (f.contains(".wmv"))  { // windows
-//#else
-//        if (f.contains(".mp4") || f.contains("MOV"))  { // mac/linux
-//#endif
 
     QString thumb = f.left( f .length() - 4) +".png";
     QIcon* ico = new QIcon();
@@ -80,15 +29,11 @@ IconInfo * getInfo (QString f) {
         qDebug() << "warning: couldn't find thumbnail " << thumb << endl;
     QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
     return new IconInfo(url,ico);
-//        }
-    //}
 
-    //sreturn out;
 }
 
 Scrub::Scrub(std::string location)
 {
-    //Iconinfos=getInfos(loc);
     loc=location;
     createWidgets();
 }
