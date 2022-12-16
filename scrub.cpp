@@ -86,13 +86,13 @@ void Scrub::createWidgets()
     //buttons to add new icons
     QPushButton * addaudiobutton = new QPushButton();
     addaudiobutton->setMaximumSize(25,25);
-    addaudiobutton->setText("+");
+    addaudiobutton->setIcon(QIcon(":/plus.png"));
         //addaudio
     QObject::connect(addaudiobutton,SIGNAL(clicked()),this,SLOT(addAudio()));
     audiobarLayout->addWidget(addaudiobutton);
     QPushButton * addvideobutton = new QPushButton();
     addvideobutton->setMaximumSize(25,25);
-    addvideobutton->setText("+");
+    addvideobutton->setIcon(QIcon(":/plus.png"));
         //add video
     QObject::connect(addvideobutton,SIGNAL(clicked()),this,SLOT(addVideo()));
     videobarLayout->addWidget(addvideobutton);
@@ -187,7 +187,7 @@ void Scrub::nextVideo()
         playingIndex+=1;
         Icon* nexticon=static_cast<Icon*>(videoslayout->itemAt(playingIndex)->widget());
         nexticon->play();
-        //jumptochain(nexticon->info,playingIndex);
+        jumptochain(nexticon->info,playingIndex);
     }
 }
 
@@ -197,5 +197,3 @@ void Scrub::jumptochain(IconInfo * info, int index)
     //qDebug() << playingIndex;
     emit jumpto(info);
 }
-
-

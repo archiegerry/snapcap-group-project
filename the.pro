@@ -13,16 +13,25 @@ SOURCES += \
         scrub.cpp \
         the_player.cpp \
         tomeo.cpp \
-        settings_page.cpp
+        settings_page.cpp \
+        tool.cpp \
+        toolbox.cpp
 
 HEADERS += \
     headerButtons.h \
     icon.h \
     scrub.h \
     the_player.h \
-    settings_page.h
+    settings_page.h \
+    tool.h \
+    toolbox.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    icons/icons.qrc
+
+DISTFILES +=

@@ -1,10 +1,9 @@
-//   ____
-//  / ___| _ __   __ _ _ __   ___ __ _ _ __
-//  \___ \| '_ \ / _` | '_ \ / __/ _` | '_ \
-//   ___) | | | | (_| | |_) | (_| (_| | |_) |
-//  |____/|_| |_|\__,_| .__/ \___\__,_| .__/
-//                    |_|             |_|
-//              "nah, that's cap"
+//    ______
+//   /_  __/___  ____ ___  ___  ____
+//    / / / __ \/ __ `__ \/ _ \/ __ \
+//   / / / /_/ / / / / / /  __/ /_/ /
+//  /_/  \____/_/ /_/ /_/\___/\____/
+//              video for sports enthusiasts...
 //
 //
 
@@ -24,15 +23,15 @@
 #include <QtCore/QDir>
 #include <QtCore/QDirIterator>
 #include "the_player.h"
-#include "the_button.h"
 #include <QtWidgets>
 #include <QtGui>
 
-#include "icon.h"
 #include "scrub.h"
 #include "headerButtons.h"
 #include "settings_page.h"
-
+#include "the_player.h"
+#include "toolbox.h"
+#include "tool.h"
 
 int main(int argc, char *argv[]) {
 
@@ -56,29 +55,68 @@ int main(int argc, char *argv[]) {
     QHBoxLayout *footer = new QHBoxLayout();
 
     headerButtons * header = new headerButtons();
-    Scrub * scrub = new Scrub(std::string(argv[1]));
-    QObject::connect(scrub, &Scrub::jumpto, player, &ThePlayer::jumpTo); // when clicked, tell the player to play.
-    QObject::connect(player, &ThePlayer::ended, scrub, &Scrub::nextVideo);
+    Scrub * scrubber = new Scrub(std::string(argv[1]));
+    QObject::connect(scrubber, &Scrub::jumpto, player, &ThePlayer::jumpTo); // when clicked, tell the player to play.
+    QObject::connect(player, &ThePlayer::ended, scrubber, &Scrub::nextVideo);
 
     QPushButton * settingsButton = header->getSettings();
 
     SettingsPage * settingsPage = new SettingsPage(&window, settingsButton);
 
+    QHBoxLayout *mediaControls = new QHBoxLayout();
+
+    QPushButton* rewindButton = new QPushButton;
+    QPushButton* skipButton = new QPushButton;
+    QPushButton* pauseButton = new QPushButton;
+    QPushButton* playButton = new QPushButton;
+
+    mediaControls->addWidget(rewindButton);
+    mediaControls->addWidget(pauseButton);
+    mediaControls->addWidget(playButton);
+    mediaControls->addWidget(skipButton);
+    mediaControls->setSpacing(0);
+
+    playButton->setIcon(QIcon(":/play.png"));
+    playButton->connect(playButton, &QPushButton::clicked, player, &QMediaPlayer::play);
+    pauseButton->setIcon(QIcon(":/pause.png"));
+    pauseButton->connect(pauseButton, &QPushButton::clicked, player, &QMediaPlayer::pause);
+    rewindButton->setIcon(QIcon(":/backwards.png"));
+    rewindButton->connect(rewindButton, &QPushButton::clicked, player, &ThePlayer::toStart);
+    skipButton->setIcon(QIcon(":/fast_forward.png"));
+    skipButton->connect(skipButton, &QPushButton::clicked, player, &ThePlayer::toEnd);
+
+    playButton -> setFixedHeight(20);
+    pauseButton -> setFixedHeight(20);
+    rewindButton -> setFixedHeight(20);
+    skipButton -> setFixedHeight(20);
+
+    mediaControls->setStretch(0,1);
+    mediaControls->setStretch(1,1);
+    mediaControls->setStretch(2,1);
+    mediaControls->setStretch(3,1);
+
+    Tool textTool("Text", QIcon(":/draw-text.svg"));
+    Tool filter("Filter", QIcon(":/draw-filter.svg"));
+    ToolBox *tb = new ToolBox(&window);
+    tb->addTool(textTool);
+    tb->addBreak();
+    tb->addTool(filter);
+    tb->addBreak();
+
     window.setLayout(screen);
-    window.setWindowTitle("Snapcap");
+    window.setWindowTitle("Tomeo");
     window.setMinimumSize(375, 812);     //Size of an iPhone X's viewport
 
     // add the video and the buttons to the top level widget
     screen->addWidget(header);
     screen->addWidget(videoWidget);
-    footer->addWidget(scrub, 9);
-    //footer->addWidget(mediaButtons, 1);
+    screen->addLayout(mediaControls);
+    footer->addWidget(scrubber, 9);
     screen->addLayout(footer);
 
     // showtime!
     window.show();
 
     // wait for the app to terminate
-
     return app.exec();
 }

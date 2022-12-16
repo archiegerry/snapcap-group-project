@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< Updated upstream
-<!-- Written by QtCreator 8.0.2, 2022-12-08T06:49:25. -->
-=======
-<!-- Written by QtCreator 9.0.0, 2022-12-16T12:29:44. -->
->>>>>>> Stashed changes
+<!-- Written by QtCreator 8.0.2, 2022-12-15T06:43:18. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -58,7 +54,6 @@
    <value type="QString" key="EditorConfiguration.ignoreFileTypes">*.md, *.MD, Makefile</value>
    <value type="bool" key="EditorConfiguration.inEntireDocument">false</value>
    <value type="bool" key="EditorConfiguration.skipTrailingWhitespace">true</value>
-   <value type="bool" key="EditorConfiguration.tintMarginArea">true</value>
   </valuemap>
  </data>
  <data>
@@ -240,10 +235,9 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">the2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/ester/scripts/yabla-cli/user_interfaces_cwk3/the.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/ester/scripts/yabla-cli/user_interfaces_cwk3/the.pro</value>
-    <value type="QString" key="RunConfiguration.Arguments">&quot;/home/ester/scripts/yabla-cli/user_interfaces_cwk3/videos&quot;</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/ester/programs/c++/user_interfaces_cwk3/the.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/ester/programs/c++/user_interfaces_cwk3/the.pro</value>
+    <value type="QString" key="RunConfiguration.Arguments">&quot;/home/ester/programs/c++/user_interfaces_cwk3/videos&quot;</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

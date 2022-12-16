@@ -21,9 +21,7 @@ public:
     Scrub(std::string loc);
     int playingIndex;
 
-
 private slots:
-
     void toggleExpandedVideo();
     void toggleExpandedAudio();
 

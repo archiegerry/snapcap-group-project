@@ -16,7 +16,6 @@ class ThePlayer : public QMediaPlayer {
 
 Q_OBJECT
 
-
 public:
     ThePlayer() : QMediaPlayer(NULL) {
         setVolume(0); // be slightly less annoying
@@ -29,8 +28,14 @@ private slots:
 
 public slots:
 
-    // start playing this IconInfo
+    // start playing this ButtonInfo
     void jumpTo (IconInfo* button);
+
+    // rewind to start of video
+    void toStart();
+
+    // skip to end
+    void toEnd();
 
 signals:
     void ended();

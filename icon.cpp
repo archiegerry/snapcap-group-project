@@ -100,5 +100,3 @@ void Icon::play()
     QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(parentWidget()->layout());
     emit jumpTo(info,layout->indexOf(this));
 }
-
-
