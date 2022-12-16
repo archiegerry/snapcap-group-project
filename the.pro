@@ -12,7 +12,7 @@ SOURCES += \
         icon.cpp \
         scrub.cpp \
         the_player.cpp \
-        tomeo.cpp \
+        snapcap.cpp \
         settings_page.cpp \
         tool.cpp \
         toolbox.cpp

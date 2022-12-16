@@ -9,6 +9,7 @@ SettingsPage::SettingsPage(QWidget *p, QPushButton *b)
     arrangeWidgets();
     connect(b, SIGNAL(clicked()), this, SLOT(toggleDisplay()));
     setVisible(false);
+    // put in a sensible location
     move(30, b->y()+100);
 	setWindowTitle("Settings Page");
 }
@@ -16,22 +17,16 @@ SettingsPage::SettingsPage(QWidget *p, QPushButton *b)
 
 void SettingsPage::createWidgets(){
     // Create widgets
-//	language = new QLabel("Language:");
 	languageField = new QPushButton(tr("Languages"));
 
-//    colourScheme = new QLabel("Colour Scheme:");
 	colourField = new QPushButton(tr("Colour Scheme"));
 
-//    fontSize = new QLabel("Font Size:");
 	fontSizeField = new QPushButton(tr("Select Font Size"));
 
-//    shortcuts = new QLabel("Shortcuts:");
 	shortcutField = new QPushButton(tr("Keyboard Shortcuts"));
 
-//    access = new QLabel("Accessibility:");
 	accessField = new QPushButton(tr("Accessibility Options"));
 
-//    privacy = new QLabel("Privacy:");
 	privacyField = new QPushButton(tr("Check Privacy Information"));
 
     mainLayout = new QFormLayout();
@@ -39,13 +34,6 @@ void SettingsPage::createWidgets(){
 
 void SettingsPage::arrangeWidgets(){
     QFormLayout * mainLayout = new QFormLayout();
-
-//    mainLayout->addRow(language, languageField);
-//   mainLayout->addRow(colourScheme, colourField);
-//    mainLayout->addRow(fontSize, fontSizeField);
-//    mainLayout->addRow(shortcuts, shortcutField);
-//    mainLayout->addRow(access, accessField);
-//    mainLayout->addRow(privacy, privacyField);
 
     mainLayout->addRow(languageField);
     mainLayout->addRow(colourField);
@@ -67,4 +55,8 @@ void SettingsPage::toggleDisplay(){
         isShowing = false;
         setVisible(false);
     }
+}
+
+void SettingsPage::cycleLanguage() {
+
 }

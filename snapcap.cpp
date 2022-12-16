@@ -1,11 +1,13 @@
-//    ______
-//   /_  __/___  ____ ___  ___  ____
-//    / / / __ \/ __ `__ \/ _ \/ __ \
-//   / / / /_/ / / / / / /  __/ /_/ /
-//  /_/  \____/_/ /_/ /_/\___/\____/
-//              video for sports enthusiasts...
+//     _____                   ______
+//    / ___/____  ____ _____  / ____/___ _____
+//    \__ \/ __ \/ __ `/ __ \/ /   / __ `/ __ \
+//   ___/ / / / / /_/ / /_/ / /___/ /_/ / /_/ /
+//  /____/_/ /_/\__,_/ .___/\____/\__,_/ .___/
+//                  /_/               /_/
+//              Easy editing for content creators!
 //
 //
+
 
 #include <iostream>
 #include <QApplication>
@@ -43,11 +45,13 @@ int main(int argc, char *argv[]) {
     // create the Qt Application
     QApplication app(argc, argv);
 
-	// create the Translator
-	QTranslator translator;
-	QString lang = "translator/the-fra.qm";
-	bool result = translator.load(lang);
-	app.installTranslator(&translator);
+    // create the Translator
+/*
+    QTranslator translator;
+    QString lang = "translator/the-fra.qm";
+    bool result = translator.load(lang);
+    app.installTranslator(&translator);
+*/
 
     // the widget that will show the video
 	QVideoWidget *videoWidget = new QVideoWidget;
@@ -126,7 +130,7 @@ int main(int argc, char *argv[]) {
     tb->addBreak();
 
     window.setLayout(screen);
-    window.setWindowTitle("Tomeo");
+    window.setWindowTitle("SnapCap");
     window.setMinimumSize(375, 812);     //Size of an iPhone X's viewport
 
     // add the video and the buttons to the top level widget
