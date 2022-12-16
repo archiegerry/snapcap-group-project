@@ -3,14 +3,13 @@
 
 SettingsPage::SettingsPage(QWidget *p, QPushButton *b)
 {
-    setParent(p);
     setMaximumSize(p->width()/2,p->height()/2 );
     createWidgets();
     arrangeWidgets();
     connect(b, SIGNAL(clicked()), this, SLOT(toggleDisplay()));
     setVisible(false);
 
-    move(b->x(), b->y()+200);
+    setGeometry(p->x(), 0, p->width(), p->height());
     setWindowTitle("Settings Page");
 }
 

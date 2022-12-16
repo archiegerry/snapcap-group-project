@@ -18,7 +18,6 @@ private:
     void createWidgets();
     void arrangeWidgets();
 
-
     // Pointers to widgets
     QLabel *language;
     QPushButton *languageField;

@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 
     QPushButton * settingsButton = header->getSettings();
 
-    SettingsPage * settingsPage = new SettingsPage(&window, settingsButton);
+    SettingsPage * settingsPage = new SettingsPage(header, settingsButton);
 
     QHBoxLayout *mediaControls = new QHBoxLayout();
 
@@ -109,6 +109,7 @@ int main(int argc, char *argv[]) {
 
     // add the video and the buttons to the top level widget
     screen->addWidget(header);
+    screen->addWidget(settingsPage);
     screen->addWidget(videoWidget);
     screen->addLayout(mediaControls);
     footer->addWidget(scrubber, 9);
