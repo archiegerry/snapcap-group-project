@@ -37,6 +37,7 @@ signals:
     void jumpto(IconInfo* info);
 
 private:
+    std::string loc;
     std::vector<QPushButton> videobuttons=std::vector<QPushButton>(8);
     std::vector<QPushButton> audiobuttons=std::vector<QPushButton>(8);
     QWidget * audiooptions = new QWidget;

@@ -5,6 +5,7 @@
 #include <QDirIterator>
 #include <QImageReader>
 #include <QDebug>
+#include <QFileDialog>
 
 // read in videos and thumbnails to this directory
 std::vector<IconInfo> getInfo (std::string loc) {
@@ -46,12 +47,52 @@ std::vector<IconInfo> getInfo (std::string loc) {
 }
 
 
+// read in videos and thumbnails to this directory
+IconInfo * getInfo (QString f) {
 
-Scrub::Scrub(std::string loc)
+    //while (it.hasNext()) { // for all files
+
+    //QString f = it.next();
+
+//    if (f.contains("."))
+
+//#if defined(_WIN32)
+//        if (f.contains(".wmv"))  { // windows
+//#else
+//        if (f.contains(".mp4") || f.contains("MOV"))  { // mac/linux
+//#endif
+
+    QString thumb = f.left( f .length() - 4) +".png";
+    QIcon* ico = new QIcon();
+    if (QFile(thumb).exists()) { // if a png thumbnail exists
+        QImageReader *imageReader = new QImageReader(thumb);
+        QImage sprite = imageReader->read(); // read the thumbnail
+        if (!sprite.isNull()) {
+            ico->addPixmap(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
+            //QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
+            //return new IconInfo(url,ico);
+            //out . push_back(IconInfo( url , ico  ) ); // add to the output list
+        }
+        else
+            qDebug() << "warning: couldn't process thumbnail " << thumb << endl;
+    }
+    else
+        qDebug() << "warning: couldn't find thumbnail " << thumb << endl;
+    QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
+    return new IconInfo(url,ico);
+//        }
+    //}
+
+    //sreturn out;
+}
+
+Scrub::Scrub(std::string location)
 {
-    Iconinfos=getInfo(loc);
+    //Iconinfos=getInfos(loc);
+    loc=location;
     createWidgets();
 }
+
 
 void Scrub::createWidgets()
 {
@@ -164,7 +205,9 @@ void Scrub::addVideo()
     QObject::connect(video,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedVideo()));
     QObject::connect(video,&Icon::jumpTo, this, &Scrub::jumptochain); // when clicked, tell the player to play.
 
-    video->init(&Iconinfos.at(rand() % 4));
+    QString filename = QFileDialog::getOpenFileName(this, QObject::tr("Which Video?"),QObject::tr(loc.c_str()));
+
+    video->init(getInfo(filename));
     videoslayout->addWidget(video);
 }
 
