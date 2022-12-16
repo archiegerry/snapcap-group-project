@@ -27,9 +27,10 @@ void ThePlayer::jumpTo (IconInfo* button) {
 }
 
 void ThePlayer::toStart() {
-
+    // if more than 1 sec in, go to start
     if (position()>1000){
         jumpTo(currentMedia);
+    // if less than 1 sec in, skip to previous video
     }else{
         emit previous();
     }

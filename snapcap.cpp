@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
 	QSlider *volSlider = new QSlider(Qt::Horizontal);
     volSlider->setRange(0,100);
     volSlider->setFixedHeight(100);
-    volSlider->setValue(50);
+    volSlider->setValue(5);
 
     volSlider->connect(volSlider, &QSlider::valueChanged, player, &QMediaPlayer::setVolume);
 
