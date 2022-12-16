@@ -30,6 +30,7 @@ private slots:
 
 public slots:
     void nextVideo();
+    void previousVideo();
     void jumptochain(IconInfo* info, int index);
 
 signals:

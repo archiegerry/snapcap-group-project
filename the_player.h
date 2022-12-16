@@ -39,6 +39,10 @@ public slots:
 
 signals:
     void ended();
+    void previous();
+
+private:
+    IconInfo* currentMedia;
 };
 
 #endif //CW2_THE_PLAYER_H

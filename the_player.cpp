@@ -20,12 +20,18 @@ void ThePlayer::playStateChanged (QMediaPlayer::State ms) {
 
 void ThePlayer::jumpTo (IconInfo* button) {
     setMedia( * button -> url);
+    currentMedia=button;
     play();
 }
 
 void ThePlayer::toStart() {
-    setPosition(0);
-    pause();
+
+    if (position()>1000){
+        jumpTo(currentMedia);
+    }else{
+        emit previous();
+    }
+    play();
 }
 
 void ThePlayer::toEnd() {

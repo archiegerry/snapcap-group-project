@@ -191,6 +191,17 @@ void Scrub::nextVideo()
     }
 }
 
+void Scrub::previousVideo()
+{
+    if (playingIndex>0){
+
+        playingIndex-=1;
+        Icon* nexticon=static_cast<Icon*>(videoslayout->itemAt(playingIndex)->widget());
+        nexticon->play();
+        jumptochain(nexticon->info,playingIndex);
+    }
+}
+
 void Scrub::jumptochain(IconInfo * info, int index)
 {
     playingIndex=index;
