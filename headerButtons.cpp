@@ -28,8 +28,8 @@ void headerButtons::createHeader()
     loadProject -> setIcon(QIcon(":/load.png"));
     loadProject -> setIconSize(QSize(50,50));
 
+    header ->addWidget(settings);
 	header ->addWidget(newProject);
-	header ->addWidget(settings);
 	header ->addWidget(loadProject);
 
     setLayout(header);
