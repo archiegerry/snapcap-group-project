@@ -23,6 +23,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QDirIterator>
 #include "the_player.h"
+#include <QMediaPlayer>
 #include <QtWidgets>
 #include <QtGui>
 #include <QTranslator>
@@ -82,9 +83,9 @@ int main(int argc, char *argv[]) {
 	QSlider *volSlider = new QSlider(Qt::Horizontal);
     volSlider->setRange(0,100);
     volSlider->setFixedHeight(100);
-    volSlider->setValue(0);
+    volSlider->setValue(50);
 
-    volSlider->connect(volSlider, SIGNAL(valueChanged(int)), player, SLOT(&ThePlayer::setVol(int)));
+    volSlider->connect(volSlider, &QSlider::valueChanged, player, &QMediaPlayer::setVolume);
 
     mediaControls->addWidget(rewindButton);
     mediaControls->addWidget(pauseButton);

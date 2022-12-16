@@ -18,7 +18,7 @@ Q_OBJECT
 
 public:
     ThePlayer() : QMediaPlayer(NULL) {
-        setVolume(0); // be slightly less annoying
+        //setVolume(0); // be slightly less annoying
         connect (this, SIGNAL (stateChanged(QMediaPlayer::State)), this, SLOT (playStateChanged(QMediaPlayer::State)) );
     }
 
@@ -36,9 +36,6 @@ public slots:
 
     // skip to end
     void toEnd();
-
-    // set volume
-    void setVol(int volume);
 
 signals:
     void ended();

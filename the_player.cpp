@@ -8,6 +8,7 @@
 void ThePlayer::playStateChanged (QMediaPlayer::State ms) {
     switch (ms) {
         case QMediaPlayer::State::StoppedState:
+            setVolume(50);
             play(); // starting playing again...
             break;
     default:
@@ -31,6 +32,3 @@ void ThePlayer::toEnd() {
 	pause();
 }
 
-void ThePlayer::setVol(int volume) {
-    setVolume(volume);
-}
