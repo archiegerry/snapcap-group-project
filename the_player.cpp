@@ -8,10 +8,12 @@
 void ThePlayer::playStateChanged (QMediaPlayer::State ms) {
     switch (ms) {
         case QMediaPlayer::State::StoppedState:
+            play(); // starting playing again...
+            break;
             if (mediaStatus() == QMediaPlayer::EndOfMedia){
                 emit ended();
             }
-            //play(); // starting playing again...
+
         break;
     default:
         break;
