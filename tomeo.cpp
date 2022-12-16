@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
 	Scrub *scrubber = new Scrub(std::string(argv[1]));
     QObject::connect(scrubber, &Scrub::jumpto, player, &ThePlayer::jumpTo); // when clicked, tell the player to play.
     QObject::connect(player, &ThePlayer::ended, scrubber, &Scrub::nextVideo);
+    QObject::connect(player, &ThePlayer::previous, scrubber, &Scrub::previousVideo);
 
 	QPushButton *settingsButton = header->getSettings();
 
