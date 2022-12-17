@@ -24,10 +24,10 @@ IconInfo * getInfo (QString f) {
             //out . push_back(IconInfo( url , ico  ) ); // add to the output list
         }
         else
-            qDebug() << "warning: couldn't process thumbnail " << thumb << endl;
+            qDebug() << "warning: couldn't process thumbnail " << thumb << Qt::endl;
     }
     else
-        qDebug() << "warning: couldn't find thumbnail " << thumb << endl;
+        qDebug() << "warning: couldn't find thumbnail " << thumb << Qt::endl;
     QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
     return new IconInfo(url,ico);
 
@@ -87,35 +87,28 @@ void Scrub::createWidgets()
 	// options and effects
     QGridLayout * audiobuttonlayout = new QGridLayout();
     QGridLayout * videobuttonlayout = new QGridLayout();
-    audiobuttons.at(0).setText("crop");
-    audiobuttons.at(1).setText("cut");
-    audiobuttons.at(2).setText("splice");
-    audiobuttons.at(3).setText("eq");
-//    audiobuttons.at(4).setText("audio option");
-//    audiobuttons.at(5).setText("audio option");
-//    audiobuttons.at(6).setText("audio option");
-//    audiobuttons.at(7).setText("audio option");
-    videobuttons.at(0).setText("crop");
-    videobuttons.at(1).setText("cut");
-    videobuttons.at(2).setText("splice");
-    videobuttons.at(3).setText("fx");
-//	videobuttons.at(4).setText("video option");
-//	videobuttons.at(5).setText("video option");
-//	videobuttons.at(6).setText("video option");
-//	videobuttons.at(7).setText("video option");
+    audiobuttons.at(0).setText("CROP");
+    audiobuttons.at(1).setText("CUT");
+    audiobuttons.at(2).setText("SPLICE");
+    audiobuttons.at(3).setText("EQ");
+
+    videobuttons.at(0).setText("CROP");
+    videobuttons.at(1).setText("CUT");
+    videobuttons.at(2).setText("SPLICE");
+    videobuttons.at(3).setText("FX");
 
 
     //add options and effects
     for (int i=0;i<NO_OF_AUDIOOPTIONS;i++){
         audiobuttons.at(i).setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Minimum);
-        audiobuttons.at(i).setStyleSheet("background-color: red");
+        audiobuttons.at(i).setStyleSheet("background-color: mediumturquoise");
         audiobuttonlayout->addWidget(&audiobuttons.at(i),i/4,i%4);
     }
     audiooptions->setLayout(audiobuttonlayout);
 
     for (int i=0;i<NO_OF_VIDEOOPTIONS;i++){
         videobuttons.at(i).setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Minimum);
-        videobuttons.at(i).setStyleSheet("background-color: blue");
+        videobuttons.at(i).setStyleSheet("background-color: mediumturquoise");
         videobuttonlayout->addWidget(&videobuttons.at(i),i/4,i%4);
     }
     videooptions->setLayout(videobuttonlayout);
@@ -135,9 +128,9 @@ void Scrub::createWidgets()
 
 void Scrub::addAudio()
 {
-    QString name =QString::fromStdString("Aud ") ;
+    QString name =QString::fromStdString(" AUDIO ") ;
     Icon * audio = new Icon(QString(name));
-    audio->setStyleSheet("QLabel { background-color : red }");
+    audio->setStyleSheet("QLabel { background-color : mediumturquoise }");
     QObject::connect(audio,SIGNAL(doubleclicked()),this,SLOT(toggleExpandedAudio()));
     audioslayout->addWidget(audio);
 }
